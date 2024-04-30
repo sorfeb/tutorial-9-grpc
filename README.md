@@ -81,9 +81,34 @@
     
 7. What impact does the adoption of gRPC as a communication protocol have on the overall architecture and design of distributed systems, particularly in terms of interoperability with other technologies and platforms?
 
+- With gRPC, service contracts are defined using Protocol Buffers (.proto files), focusing on defining message types and service endpoints.
+- API design becomes more streamlined and language-agnostic, promoting clear and concise service definitions.
+- Protocol Buffers are supported by various programming languages, enabling interoperability across different technology stacks.
+- gRPC generates strongly-typed client and server code from .proto files, providing type safety and consistency.
+- Design Consideration: Developers work with generated code, reducing manual implementation effort and potential errors.
+- Clients and servers written in different languages can communicate seamlessly, as long as they adhere to the same service contract.
+- gRPC uses HTTP/2 for communication, allowing for multiplexed, bidirectional streaming, and header compression.
+- Architectures can leverage these features for efficient data transfer and reduced latency.
+- While HTTP/2 is widely supported, some legacy systems might not fully support it, potentially requiring gateway or proxy solutions for compatibility.
+- With gRPC, microservices can be implemented in different languages, allowing teams to use the best tool for the job.
+
 8. What are the advantages and disadvantages of using HTTP/2, the underlying protocol for gRPC, compared to HTTP/1.1 or HTTP/1.1 with WebSocket for REST APIs?
 
+- **Advantages of HTTP/2**:
+   -Multiplexing: allowing multiple requests and responses to be sent over a single connection simultaneously reduces latency and improves throughput, as it eliminates the need for multiple connections for parallel requests.
+  - Binary Format: HTTP/2 uses a binary framing layer for communication, which is more efficient compared to the text-based format of HTTP/1.1, which reduces overhead and improves performance, especially for high-volume or low-latency applications.
+  - Header Compression: HTTP/2 compresses header data, reducing the amount of data transmitted over the network, which results in lower bandwidth usage and faster transmission times, particularly for requests with large headers or cookies.
+
+- **Disadvantages of HTTP/2**:
+   -Complexity: HTTP/2's multiplexing and binary framing introduce complexity compared to HTTP/1.1, so implementing and debugging HTTP/2 servers and clients can be more challenging, especially for developers unfamiliar with its intricacies.
+  - Interoperability:  Although widely supported, not all software or infrastructure fully supports HTTP/2, which results in issues that may arise when integrating with legacy systems or certain network configurations.
+  - Resource Consumption: Multiplexing and header compression can increase resource consumption, especially for servers handling many concurrent connections, so servers may require more memory and processing power to handle HTTP/2 connections efficiently.
+
 9. How does the request-response model of REST APIs contrast with the bidirectional streaming capabilities of gRPC in terms of real-time communication and responsiveness?
+    
+  **REST APIs** are suitable for real-time communication using techniques like long-polling or SSE, but may have limitations in terms of scalability and efficiency due to frequent polling and long-lived connections, while **gRPC** provides native support for bidirectional streaming, enabling highly responsive real-time communication with lower latency and higher efficiency, making it particularly well-suited for real-time applications requiring instant updates.
 
 10. What are the implications of the schema-based approach of gRPC, using Protocol Buffers, compared to the more flexible, schema-less nature of JSON in REST API payloads?
-
+    
+gRPC with Protocol Buffers: Provides strong typing, efficiency, and schema evolution capabilities, suitable for performance-critical and evolving systems with well-defined contracts.
+REST API with JSON: Offers flexibility, interoperability, and ease of use, ideal for rapidly changing requirements and environments where flexibility is prioritized over strict contract enforcement.
